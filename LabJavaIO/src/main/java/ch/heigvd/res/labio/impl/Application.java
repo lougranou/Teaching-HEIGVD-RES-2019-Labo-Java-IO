@@ -90,6 +90,9 @@ public class Application implements IApplication {
        * one method provided by this class, which is responsible for storing the content of the
        * quote in a text file (and for generating the directories based on the tags).
        */
+      String filename = "quote-" + i + ".utf8";
+      storeQuote(quote,filename);
+
       LOG.info("Received a new joke with " + quote.getTags().size() + " tags.");
       for (String tag : quote.getTags()) {
         LOG.info("> " + tag);
@@ -123,7 +126,26 @@ public class Application implements IApplication {
    * @throws IOException 
    */
   void storeQuote(Quote quote, String filename) throws IOException {
-    throw new UnsupportedOperationException("The student has not implemented this method yet.");
+    File directory = new File(WORKSPACE_DIRECTORY);
+    boolean contains = false;
+    for(String s : quote.getTags()){
+      for(File f : directory.listFiles()){
+        if(f.getName() == s){
+          contains = true;
+          break;
+        }
+      }
+  // if directory contain already the sub directory wanted
+      if(contains){
+        directory = new File(directory.getAbsolutePath()+ '/' + s);
+      } else {
+        File subdirectory = new File(s);
+        subdirectory
+      }
+
+    }
+
+    //throw new UnsupportedOperationException("The student has not implemented this method yet.");
   }
   
   /**

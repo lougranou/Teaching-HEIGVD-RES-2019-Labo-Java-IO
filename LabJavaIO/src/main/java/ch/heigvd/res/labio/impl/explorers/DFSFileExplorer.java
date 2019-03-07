@@ -21,8 +21,8 @@ public class DFSFileExplorer implements IFileExplorer {
           visitor.visit(rootDirectory);
           explore(f,visitor);
       }
-      
-    throw new UnsupportedOperationException("The student has not implemented this method yet.");
+
+   // throw new UnsupportedOperationException("The student has not implemented this method yet.");
   }
 
 }
