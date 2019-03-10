@@ -130,5 +130,4 @@ public class FileNumberingFilterWriterTest {
     String referenceValue = referenceWriter.toString();
     assertEquals(referenceValue, computedValue);
   }
-
 }

@@ -28,6 +28,7 @@ public class Application implements IApplication {
     public static String WORKSPACE_DIRECTORY = "./workspace/quotes";
 
     private static final Logger LOG = Logger.getLogger(Application.class.getName());
+    private CompleteFileTransformer completeFileTransformer;
 
     public static void main(String[] args) {
 
@@ -143,27 +144,17 @@ public class Application implements IApplication {
             directoryQuote.mkdirs();
         }
 
+
         /**
          *  Write quote content to its directory in .UTF8
          */
+
         try (OutputStreamWriter writer =
                      new OutputStreamWriter(new FileOutputStream(directoryQuote + "/" + filename), "UTF-8")){
             writer.write(quote.getQuote());
         } catch (Exception e){
             System.out.println("Exception in StoreQuote() : " + e.getMessage());
         }
-
-        /**
-         *  Write quote content to its directory in .UTF8.out
-         */
-        try (Writer writer =
-                     new FileNumberingFilterWriter(new UpperCaseFilterWriter(new OutputStreamWriter(new FileOutputStream(directoryQuote + "/" + filename + ".out"), "UTF-8")))){
-            writer.write(quote.getQuote());
-        } catch (Exception e){
-            System.out.println("Exception in StoreQuote() : " + e.getMessage());
-        }
-
-
 }
 
     /**
@@ -181,7 +172,11 @@ public class Application implements IApplication {
                  * be pretty easy (we want to write the filename, including the path, to the writer passed in argument).
                  */
 
-                //DFSFileExplorer
+                try {
+                    writer.write(file.getPath() + "\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
             }

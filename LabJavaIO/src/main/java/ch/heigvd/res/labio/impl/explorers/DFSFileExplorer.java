@@ -25,7 +25,7 @@ public class DFSFileExplorer implements IFileExplorer {
         visitor.visit(rootDirectory);
 
         /**
-         * file- no directory or no files not allowed
+         * file (no directory) or no files not allowed
          */
         if (rootDirectory.isDirectory()) {
             File[] files = rootDirectory.listFiles();
