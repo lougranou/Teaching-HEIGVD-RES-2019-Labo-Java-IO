@@ -1,6 +1,8 @@
 package ch.heigvd.res.labio.impl;
 
 import ch.heigvd.res.labio.impl.explorers.DFSFileExplorer;
+import ch.heigvd.res.labio.impl.filters.FileNumberingFilterWriter;
+import ch.heigvd.res.labio.impl.filters.UpperCaseFilterWriter;
 import ch.heigvd.res.labio.impl.transformers.CompleteFileTransformer;
 import ch.heigvd.res.labio.interfaces.IApplication;
 import ch.heigvd.res.labio.interfaces.IFileExplorer;
@@ -88,8 +90,8 @@ public class Application implements IApplication {
              * one method provided by this class, which is responsible for storing the content of the
              * quote in a text file (and for generating the directories based on the tags).
              */
-            String filename = "quote-" + i + ".utf8";
-            storeQuote(quote, filename);
+
+            storeQuote(quote, new String( "quote-" + i + ".utf8"));
 
             LOG.info("Received a new joke with " + quote.getTags().size() + " tags.");
             for (String tag : quote.getTags()) {
@@ -151,6 +153,16 @@ public class Application implements IApplication {
             System.out.println("Exception in StoreQuote() : " + e.getMessage());
         }
 
+        /**
+         *  Write quote content to its directory in .UTF8.out
+         */
+        try (Writer writer =
+                     new FileNumberingFilterWriter(new UpperCaseFilterWriter(new OutputStreamWriter(new FileOutputStream(directoryQuote + "/" + filename + ".out"), "UTF-8")))){
+            writer.write(quote.getQuote());
+        } catch (Exception e){
+            System.out.println("Exception in StoreQuote() : " + e.getMessage());
+        }
+
 
 }
 
@@ -168,11 +180,9 @@ public class Application implements IApplication {
                  * of the the IFileVisitor interface inline. You just have to add the body of the visit method, which should
                  * be pretty easy (we want to write the filename, including the path, to the writer passed in argument).
                  */
-                try {
-                    writer.write(file.getPath() + "/" + file.getName());
-                } catch (Exception e){
-                    System.out.println("Erreur in printFileNames : " + e.getMessage());
-                }
+
+                //DFSFileExplorer
+
 
             }
         });

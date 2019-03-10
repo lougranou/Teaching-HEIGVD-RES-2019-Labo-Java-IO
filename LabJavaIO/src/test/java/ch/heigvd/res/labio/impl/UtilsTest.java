@@ -32,7 +32,7 @@ public class UtilsTest {
     String[] e1 = {"hello\r", "world\r"};
     assertArrayEquals(e1, r1);
     String[] r2 = Utils.getNextLine(r1[1]);
-    String[] e2 = {"world\r", ""};
+   String[] e2 = {"world\r", ""};
     assertArrayEquals(e2, r2);
   }
 
