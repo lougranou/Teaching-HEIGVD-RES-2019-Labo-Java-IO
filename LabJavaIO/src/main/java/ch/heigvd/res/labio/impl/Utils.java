@@ -34,7 +34,7 @@ public class Utils {
 
             if (c == BREAK_LINE) {
                 /**
-                 *  increment i because the end index is exclusive in sub-string
+                 *  increment i because the end index is exclusive in sub-string methods
                  */
                 ++i;
                 break;
@@ -51,15 +51,16 @@ public class Utils {
                     ++i;
                     break;
                 }
+
+                /**
+                 * new line separator not found
+                 */
             } else  if ( i == lines.length() -1){
-                i = 0; // no return line char
+                i = 0;
                 break;
             }
-
             ++i;
         }
-
-
         return new String[]{lines.substring(0, i), lines.substring(i)};
     }
 }
